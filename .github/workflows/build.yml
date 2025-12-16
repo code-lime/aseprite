@@ -21,6 +21,14 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
+    - name: Test upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: aseprite-test-${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.ui }}-${{ matrix.scripting }}
+        path: .
+    - name: Install Dependencies
+      run: |
+        exit -1
     - name: Install Dependencies
       if: runner.os == 'Linux'
       shell: bash
@@ -111,5 +119,5 @@ jobs:
     - name: Upload aseprite
       uses: actions/upload-artifact@v4
       with:
-        name: aseprite
+        name: aseprite-${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.ui }}-${{ matrix.scripting }}
         path: build/bin/aseprite
